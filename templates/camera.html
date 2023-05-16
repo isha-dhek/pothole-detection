@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camera</title>
+
+    <style>
+      body {
+        background-color: #0c0c0c;
+        padding: 0;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 20px;
+        font-family: 'Permanent-Marker', cursive;
+        /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+          
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 15px;
+        color: #08f4d9;
+      }
+
+      body {
+        margin: 50px;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #videoElement {
+        width: 500px;
+        height: 375px;
+        background-color: #666;
+      }
+
+      a {
+        align-items: center;
+      }
+
+      a {
+        
+        margin-top: 20px;
+        padding-left: 500px;
+        height: 55px;
+        width: 150px;
+        margin-right: 58px;
+        margin-bottom: 20px;
+        margin-top: 60px;
+      }
+
+      a button {
+        padding: 16px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border: 2px solid #08f4d9;
+  border-radius: 4px;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #08f4d9;;
+  color: #0f0f0f;
+      }
+
+      .link {
+        padding: 15px 30px;
+        background-color: #08f4d9;;
+  color: #0f0f0f;
+
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: none;
+        /* background: linear-gradient(90deg, #f751d0, rgb(143, 143, 219)); */
+        background-color: #08f4d9;;
+  color: #0f0f0f;
+      }
+
+      /*==================*/
+      /* POP
+/*==================*/
+
+      @-webkit-keyframes pop-on-hover {
+        50% {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+        }
+      }
+      @keyframes pop-on-hover {
+        50% {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+        }
+      }
+      .pop-on-hover {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+      }
+      .pop-on-hover:hover,
+      .pop-on-hover:focus,
+      .pop-on-hover:active {
+        -webkit-animation-name: pop-on-hover;
+        animation-name: pop-on-hover;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        -webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <h1>DISPLAY CAMERA STREAM</h1>
+    <div id="container">
+      <video autoplay="true" id="videoElement"></video>
+    </div>
+    <br /><br />
+    <a href="/"
+      ><button id="back" class="link pop-on-hover">
+        <!-- <i class="arrow left"></i><i class="arrow left"></i> -->
+        BACK
+      </button></a
+    >
+
+    <script>
+      const video = document.getElementById("videoElement");
+      const img = document.createElement("img");
+      document.getElementById("container").appendChild(img);
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+            // send latest video stream to the backend after every 5 seconds
+            setInterval(() => {
+              const canvas = document.createElement("canvas");
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              canvas.getContext("2d").drawImage(video, 0, 0);
+              const dataURL = canvas.toDataURL("image/jpeg", 0.2);
+              fetch("/camera", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ dataURL }),
+              })
+                .then((res) => res.json())
+                // convert base64 string to image and display it on the frontend
+                .then((data) => {
+                  // console.log(data);
+                  // convert base64 string to image
+                  img.src = data.dataURL;
+                });
+              // .then(data => );
+            }, 60); // we will have to keep this at 30 at final stage
+          })
+          .catch(function (error) {
+            console.log("Something went wrong!");
+          });
+      }
+    </script>
+  </body>
+</html>

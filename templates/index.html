@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pothole-Detection</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      background: #000000;
+      overflow: hidden;
+    }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+    .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 30px;
+}
+
+.content h1 {
+ 
+  font-size: 50px;
+        font-family: 'Permanent-Marker', cursive;
+        /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+          
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 15px;
+        color: #08f4d9;
+}
+
+.content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.content a {
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.content button {
+  padding: 16px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border: 2px solid #08f4d9;
+  border-radius: 4px;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.content button:hover {
+  background-color: #08f4d9;;
+  color: #0f0f0f;
+}
+
+/* Animate the size, outside */
+
+
+
+    .glowing {
+      position: relative;
+      min-width: 700px;
+      height: 550px;
+      margin: -150px;
+      transform-origin: right;
+      animation: colorChange 5s linear infinite;
+    }
+
+    .glowing:nth-child(even) {
+      transform-origin: left;
+    }
+
+    @keyframes colorChange {
+      0% {
+        filter: hue-rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        filter: hue-rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    .glowing span {
+      position: absolute;
+      top: calc(80px * var(--i));
+      left: calc(80px * var(--i));
+      bottom: calc(80px * var(--i));
+      right: calc(80px * var(--i));
+    }
+
+    .glowing span::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -8px;
+      width: 15px;
+      height: 15px;
+      background: #f00;
+      border-radius: 50%;
+    }
+
+    .glowing span:nth-child(3n + 1)::before {
+      background: rgba(134, 255, 0, 1);
+      box-shadow: 0 0 20px rgba(134, 255, 0, 1),
+        0 0 40px rgba(134, 255, 0, 1),
+        0 0 60px rgba(134, 255, 0, 1),
+        0 0 80px rgba(134, 255, 0, 1),
+        0 0 0 8px rgba(134, 255, 0, 0.1);
+    }
+
+    .glowing span:nth-child(3n + 2)::before {
+      background: rgba(255, 214, 0, 1);
+      box-shadow: 0 0 20px rgba(255, 214, 0, 1),
+        0 0 40px rgba(255, 214, 0, 1),
+        0 0 60px rgba(255, 214, 0, 1),
+        0 0 80px rgba(255, 214, 0, 1),
+        0 0 0 8px rgba(255, 214, 0, 0.1);
+    }
+
+    .glowing span:nth-child(3n + 3)::before {
+      background: rgba(0, 226, 255, 1);
+      box-shadow: 0 0 20px rgba(0, 226, 255, 1),
+        0 0 40px rgba(0, 226, 255, 255, 1),
+        0 0 60px rgba(0, 226, 255, 1),
+        0 0 80px rgba(0, 226, 255, 1),
+        0 0 0 8px rgba(0, 226, 255, 0.1);
+    }
+
+    .glowing span:nth-child(3n + 1) {
+      animation: animate 10s alternate infinite;
+    }
+
+    .glowing span:nth-child(3n + 2) {
+      animation: animate-reverse 3s alternate infinite;
+    }
+
+    .glowing span:nth-child(3n + 3) {
+      animation: animate 8s alternate infinite;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: rotate(180deg);
+      }
+      50% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes animate-reverse {
+      0% {
+        transform: rotate(360deg);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="glowing">
+      <span style="--i:1;"></span>
+      <span style="--i:2;"></span>
+      <span style="--i:3;"></span>
+    </div>
+    
+    <div class="content">
+      <h1>Pothole-Detection</h1>
+      <p>Use any of these mentioned mediums to drop input and detect potholes:</p>
+      <a href="displaycamera"><button id="camera" class="link pop-on-hover">CAMERA</button></a>
+      <a href="displayimage"><button class="link pop-on-hover">IMAGE</button></a>
+      <a href="rtsp"><button class="link pop-on-hover">RTSP</button></a>
+      <a href="displaypdf"><button class="link pop-on-hover">PDF</button></a>
+      <a href="displayvideo"><button class="link pop-on-hover">VIDEO</button></a>
+    </div>
+    
+    <div class="glowing">
+      <span style="--i:1;"></span>
+      <span style="--i:2;"></span>
+      <span style="--i:3;"></span>
+    </div>
+    
+    <div class="glowing">
+      <span style="--i:1;"></span>
+      <span style="--i:2;"></span>
+      <span style="--i:3;"></span>
+    </div>
+    
+    <div class="glowing">
+      <span style="--i:1;"></span>
+      <span style="--i:2;"></span>
+      <span style="--i:3;"></span>
+    </div>
+  </div>
+</body>
+
+
+</html>
+

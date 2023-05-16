@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pdf</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <style>
+        body {
+        background-color: black;
+      }
+
+      h1 {
+        font-weight: bold;
+        font-size: 20px;
+        font-family: 'Permanent-Marker', cursive;
+        /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 15px;
+        color: #08f4d9;
+      }
+
+      .form-control{
+        width: 300px;
+        height: 50px;
+      }
+
+      dl p{
+        padding-left: 420px;
+      }
+
+    #submit {
+        padding-left: 500px;
+        height: 55px;
+        width: 150px;
+        margin-right: 58px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: 15px 30px;
+        color: #08f4d9;
+        /* background: linear-gradient(90deg, #4e07b0, #55e7f6); */
+        background: black;
+        border-color: #08f4d9;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 20px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+
+      #submit{
+        margin-left: 494px;
+      }
+
+      #submit:hover {
+        text-decoration: none;
+        background: #08f4d9;
+        color: black;
+      }
+      a {
+        align-items: center;
+      }
+
+      a {
+        
+        margin-top: 20px;
+        padding-left: 545px;
+        height: 55px;
+        width: 150px;
+        margin-right: 58px;
+        margin-bottom: 20px;
+        margin-top: 60px;
+      }
+
+      a button {
+        font-size: 19px;
+        color: aliceblue;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        border-radius: 4px;
+        background-color: aliceblue;
+        border-color: #08f4d9;
+        padding-top: 60px;
+        padding-right: 350px;
+        background: black;
+      }
+
+      button:hover {
+        background-color: rgb(236, 190, 190);
+      }
+
+      .link {
+        padding: 15px 30px;
+        color:#08f4d9;
+        /* background: linear-gradient(90deg, #4e07b0, #55e7f6); */
+        background: black;
+        
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: none;
+        /* background: linear-gradient(90deg, #f751d0, rgb(143, 143, 219)); */
+        background-color: #08f4d9;
+        color: #0c0c0c;
+      }
+
+      /*==================*/
+      /* POP
+/*==================*/
+
+      @-webkit-keyframes pop-on-hover {
+        50% {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+        }
+      }
+      @keyframes pop-on-hover {
+        50% {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+        }
+      }
+      .pop-on-hover {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+      }
+      .pop-on-hover:hover,
+      .pop-on-hover:focus,
+      .pop-on-hover:active {
+        -webkit-animation-name: pop-on-hover;
+        animation-name: pop-on-hover;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        -webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;
+      }
+      
+    </style>
+</head>
+
+<body>
+    <p>
+    <h1 align="center">UPLOAD PDF</h1>
+    </p>
+    <div class="container">
+        <div class="row">
+            <form method="post" action="/displaypdf" enctype="multipart/form-data">
+                <dl>
+                    <p>
+                        <input type="file" name="file" class="form-control" autocomplete="off" required>
+                    </p>
+                </dl>
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-info" id="submit">
+                </p>
+            </form>
+            {% if filename %}
+            <div>
+                <img src="{{ url_for('display_image', filename=filename) }}" height="815px" width="1170px">
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <br /><br />
+    <a href="/"
+      ><button id="back" class="link pop-on-hover">
+        <!-- <i class="arrow left"></i><i class="arrow left"></i> -->
+        BACK
+      </button></a
+    >
+</body>
+
+</html>
